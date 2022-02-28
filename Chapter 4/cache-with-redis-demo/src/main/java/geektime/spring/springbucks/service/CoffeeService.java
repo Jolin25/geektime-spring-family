@@ -22,7 +22,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 public class CoffeeService {
     @Autowired
     private CoffeeRepository coffeeRepository;
-
+    // 使用JVM和Redis做为缓存都用的是一样的注解，说明了spring data的操作的统一性
     @Cacheable
     public List<Coffee> findAllCoffee() {
         return coffeeRepository.findAll();

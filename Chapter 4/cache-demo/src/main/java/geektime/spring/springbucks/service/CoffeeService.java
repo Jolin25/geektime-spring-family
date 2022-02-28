@@ -22,12 +22,12 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 public class CoffeeService {
     @Autowired
     private CoffeeRepository coffeeRepository;
-
+    // 加入缓存
     @Cacheable
     public List<Coffee> findAllCoffee() {
         return coffeeRepository.findAll();
     }
-
+    // 清理缓存
     @CacheEvict
     public void reloadCoffee() {
     }
