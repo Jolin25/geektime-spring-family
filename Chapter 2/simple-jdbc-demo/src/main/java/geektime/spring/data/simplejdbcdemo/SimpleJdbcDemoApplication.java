@@ -41,7 +41,8 @@ public class SimpleJdbcDemoApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         fooDao.insertData();
         batchFooDao.batchInsert();
-        fooDao.listData();
+        // fooDao.listData();
+        fooDao.testCustomException();
     }
 
 }

@@ -12,13 +12,14 @@
 	<artifactId>errorcode-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>errorcode-demo</name>
-	<description>Demo project for Spring Boot</description>
+	<description>spring dao 异常抽象</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+		<!--spring jdbc-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
