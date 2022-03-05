@@ -21,6 +21,8 @@ public class CoffeeService {
     @Autowired
     private CoffeeRepository coffeeRepository;
 
+    // spring dao：缓存抽象：表明把得到的数据存入缓存中
+    // TODO_Joly:这里没有在配置文件中说明用redis做缓存，那么springboot是会用jvm做，还是会因为检索到了有redis依赖，就自动配置使用redis做缓存？
     @Cacheable
     public List<Coffee> getAllCoffee() {
         return coffeeRepository.findAll(Sort.by("id"));
