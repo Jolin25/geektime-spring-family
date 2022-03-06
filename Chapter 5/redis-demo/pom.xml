@@ -19,6 +19,7 @@
 	</properties>
 
 	<dependencies>
+		<!--spring boot 提供的以reactive的方式操作Redis-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>

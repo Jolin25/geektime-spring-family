@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+/**
+ * 配置类
+ * AspectJ
+ * @author Joly
+ */
 @Configuration
 @EnableAspectJAutoProxy
 public class FooConfig {
