@@ -1,3 +1,4 @@
 Spring application context
 
-    演示应用上下文之间的继承关系
+    演示应用上下文之间的父子关系 && aop
+    属于ioc的实现的使用，结合了aop
