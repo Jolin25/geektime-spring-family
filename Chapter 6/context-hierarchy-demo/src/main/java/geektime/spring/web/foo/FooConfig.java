@@ -6,8 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
- * 配置类
- * AspectJ
+ * 1.配置类:
+ * 配置了3个bean
+ * <p>
+ * 2.TODO_Joly AspectJ
+ *
  * @author Joly
  */
 @Configuration

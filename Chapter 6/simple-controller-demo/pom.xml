@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>geektime.spring.springbucks</groupId>
-    <artifactId>waiter-service</artifactId>
+    <artifactId>waiter-service-artifact</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>waiter-service</name>
+    <name>waiter-service-name</name>
     <description>spring mvc : controller 演示</description>
 
     <properties>

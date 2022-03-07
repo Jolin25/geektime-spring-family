@@ -5,12 +5,13 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
-
+    <!--DONE_Joly:干嘛用的 ===> 用来开启aop的：说明这个上下文可以使用aop-->
     <aop:aspectj-autoproxy/>
-
+    <!-- 向容器中注入一个TestBean类型的bean,bean id 为testBeanX-->
     <bean id="testBeanX" class="geektime.spring.web.context.TestBean">
-        <constructor-arg name="context" value="Bar" />
+        <constructor-arg name="context" value="Bar"/>
     </bean>
 
-    <!--<bean id="fooAspect" class="geektime.spring.web.foo.FooAspect" />-->
+    <!--把切面定义去掉是为了实现父子容器都是用aop增强-->
+    <!--<bean id="fooAspect" class="geektime.spring.web.foo.FooAspect"/>-->
 </beans>

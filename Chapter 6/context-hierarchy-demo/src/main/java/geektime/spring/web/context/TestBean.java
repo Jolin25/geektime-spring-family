@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 要增强的目标
+ * 要增强的目标:就是一个普通的类
  *
  * @author Joly
  */
