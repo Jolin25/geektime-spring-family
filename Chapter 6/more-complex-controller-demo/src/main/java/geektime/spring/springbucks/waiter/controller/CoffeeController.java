@@ -34,6 +34,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 对前端的传参进行校验、类型转换，以及接受文件
+ *
+ * @author Joly
+ */
 @Controller
 @RequestMapping("/coffee")
 @Slf4j
@@ -41,12 +46,19 @@ public class CoffeeController {
     @Autowired
     private CoffeeService coffeeService;
 
-    @PostMapping(path = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    /**
+     * 对传入的参数进行校验，并不用spring的错误处理，而是自己处理
+     *
+     * @param
+     * @return
+     * @date 2022/3/11
+     */
+    @PostMapping(path = "/with_result", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public Coffee addCoffee(@Valid NewCoffeeRequest newCoffee,
                             BindingResult result) {
-        if (result.hasErrors()) {
+        if (result.hasErrors()) { // 自己处理校验错误
             // 这里先简单处理一下，后续讲到异常处理时会改
             log.warn("Binding Errors: {}", result);
             return null;
@@ -54,13 +66,31 @@ public class CoffeeController {
         return coffeeService.saveCoffee(newCoffee.getName(), newCoffee.getPrice());
     }
 
-//    @PostMapping(path = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//    @ResponseBody
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Coffee addCoffeeWithoutBindingResult(@Valid NewCoffeeRequest newCoffee) {
-//        return coffeeService.saveCoffee(newCoffee.getName(), newCoffee.getPrice());
-//    }
+    /**
+     * 1.Valid 注解 用于对参数进行校验
+     * 会返回400：Bad Request
+     * 2.TODO_Joly RequestBody注解可以把前端传回来的数据转换成对象，但是前端如果传的是表单，好像就自动转换成对象了
+     *
+     * @param
+     * @return
+     * @date 2022/3/10
+     */
+    @PostMapping(path = "/without_result", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public Coffee addCoffeeWithoutBindingResult(@Valid NewCoffeeRequest newCoffee) {
+        return coffeeService.saveCoffee(newCoffee.getName(), newCoffee.getPrice());
+    }
 
+    /**
+     * 1.文件上传演示
+     * 2.关于使用了Post请求，而参数列表用RequestParam注解来接收：
+     * 这个注解的注释里是这么写的：In Spring MVC, "request parameters" map to query parameters, form data, and parts in multipart requests.
+     * 我想你好奇的是这里为什么我不用RequstBody吧？这个注解是把整个请求的Body传给参数，而RequestParam是可以把Body里的对应部分取出来传给参数。
+     * @param
+     * @return
+     * @date 2022/3/10
+     */
     @PostMapping(path = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
@@ -83,6 +113,7 @@ public class CoffeeController {
             } catch (IOException e) {
                 log.error("exception", e);
             } finally {
+                // tomcat提供的io连接关闭工具
                 IOUtils.closeQuietly(reader);
             }
         }

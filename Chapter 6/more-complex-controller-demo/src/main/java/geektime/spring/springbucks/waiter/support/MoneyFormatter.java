@@ -10,6 +10,11 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.util.Locale;
 
+/**
+ * 演示如何在Spring MVC 中实现类型的自定义和转换
+ *
+ * @author Joly
+ */
 @Component
 public class MoneyFormatter implements Formatter<Money> {
     /**
@@ -18,6 +23,7 @@ public class MoneyFormatter implements Formatter<Money> {
      */
     @Override
     public Money parse(String text, Locale locale) throws ParseException {
+        // NumberUtils 是外部工具类
         if (NumberUtils.isParsable(text)) {
             return Money.of(CurrencyUnit.of("CNY"), NumberUtils.createBigDecimal(text));
         } else if (StringUtils.isNotEmpty(text)) {

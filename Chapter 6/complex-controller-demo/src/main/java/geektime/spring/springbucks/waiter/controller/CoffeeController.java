@@ -19,13 +19,13 @@ import java.util.List;
 public class CoffeeController {
     @Autowired
     private CoffeeService coffeeService;
-
+    //http://localhost:8080/coffee/?price=11
     @GetMapping(path = "/", params = "!name")
     @ResponseBody
     public List<Coffee> getAll() {
         return coffeeService.getAllCoffee();
     }
-
+    //http://localhost:8080/coffee/1
     @RequestMapping(path = "/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -33,10 +33,10 @@ public class CoffeeController {
         Coffee coffee = coffeeService.getCoffee(id);
         return coffee;
     }
-
-    @GetMapping(path = "/", params = "name")
+    //http://localhost:8080/coffee/?name=espresso&price=11
+    @GetMapping(path = "/")
     @ResponseBody
-    public Coffee getByName(@RequestParam String name) {
+    public Coffee getByName(@RequestParam("price") String name,@RequestParam("name") String price) {
         return coffeeService.getCoffee(name);
     }
 }
