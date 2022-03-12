@@ -1,6 +1,8 @@
 package geektime.spring.springbucks.waiter.controller;
 
 import geektime.spring.springbucks.waiter.controller.request.NewCoffeeRequest;
+import geektime.spring.springbucks.waiter.controller.request.ValidList;
+import geektime.spring.springbucks.waiter.controller.request.ValidOne;
 import geektime.spring.springbucks.waiter.model.Coffee;
 import geektime.spring.springbucks.waiter.service.CoffeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,21 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -83,10 +75,32 @@ public class CoffeeController {
     }
 
     /**
+     * 1.Validated 注解和Valid注解可能差别不大---> 确实不大，Validated是Spring对Valid的优化
+     * 2.DONE_Joly: 但是为什么要用ValidList去包一层呢？直接用List不行吗？既然都是去校验的List
+     * ---> 因为Valid注解校验参数的话只能校验JavaBean类型的，List不是的撒，所以就自己搞个JavaBean
+     * 形式的List来包一下，然后依靠Valid注解放在属性上去做级联校验。
+     *
+     * @param
+     * @return
+     * @date 2022/3/11
+     */
+    @PostMapping(path = "/test_valid")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public String testValid(@RequestBody @Valid ValidList<ValidOne> requestValidList, BindingResult br) {
+        if (br.hasErrors()) {
+            System.out.println(br);
+            return "error";
+        }
+        return String.valueOf(requestValidList.size()) + br.hasErrors();
+    }
+
+    /**
      * 1.文件上传演示
      * 2.关于使用了Post请求，而参数列表用RequestParam注解来接收：
      * 这个注解的注释里是这么写的：In Spring MVC, "request parameters" map to query parameters, form data, and parts in multipart requests.
      * 我想你好奇的是这里为什么我不用RequstBody吧？这个注解是把整个请求的Body传给参数，而RequestParam是可以把Body里的对应部分取出来传给参数。
+     *
      * @param
      * @return
      * @date 2022/3/10

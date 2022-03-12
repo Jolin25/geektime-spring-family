@@ -1,7 +1,6 @@
 package geektime.spring.springbucks.waiter.controller.request;
 
 
-
 import javax.validation.Valid;
 import java.util.*;
 
@@ -10,14 +9,25 @@ import java.util.*;
  *
  * @author jx
  */
-
 public class ValidList<E> implements List<E> {
-
-    /*
-    * 这就是想要校验的属性，但问题是为什么想要校验的属性也是list呢
-    * */
+    // 这里给初始化了，可能是为了参数绑定时进行Json解析
     @Valid
-    private List<E> list = new ArrayList<>();
+    private ArrayList<E> list = new ArrayList<>();
+
+    public ValidList(@Valid ArrayList<E> list) {
+        this.list = list;
+    }
+
+    public ValidList() {
+    }
+
+    public ArrayList<E> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<E> list) {
+        this.list = list;
+    }
 
     @Override
     public int size() {
