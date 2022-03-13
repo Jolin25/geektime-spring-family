@@ -1,0 +1,7 @@
+Spring MVC : 视图 ：Thymeleaf
+
+
+ Thymeleaf和Jackson：
+ 1.Thymeleaf适用于前后端不分离的情况；Jackson适用于前后端分离的情况
+ 2.Thymeleaf是模板引擎
+ 3.Thymeleaf和Jackson都是视图，主流程是一样的，只不过Thymeleaf还要拿模板和数据来呈现视图，而Jackson只需要拿数据来呈现视图就好了。

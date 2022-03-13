@@ -13,23 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -103,11 +91,24 @@ public class CoffeeController {
         return coffeeService.getAllCoffee();
     }
 
+    /**
+     * 在RequestMapping注解中没有指定返回的类型，那么因为依赖了Jackson，所以
+     * 可以返回给前端Json或者Xml的格式
+     *
+     * @param
+     * @return
+     * @date 2022/3/13
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Coffee getById(@PathVariable Long id) {
         Coffee coffee = coffeeService.getCoffee(id);
         log.info("Coffee {}:", coffee);
+        /** knowledge point:
+         *  coffee会先被ViewResolver处理，得到View对象之后，由前端控制器DispatcherServlet
+         *  发送给视图模块，由Jackson对View对象进行处理：将包含了coffee的view对象放入
+         *  Request域中，然后再由DispatcherServlet将response返回给前端
+         * */
         return coffee;
     }
 
