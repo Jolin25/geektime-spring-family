@@ -1,0 +1,7 @@
+蜗牛版Spring MVC仿版：
+    大致流程+注解+反射
+    没有使用Spring框架：所以Servlet要自己写，tomcat要自己放
+
+
+idea + maven 配置项目：
+https://www.cnblogs.com/zhaoyanhaoBlog/p/11338024.html
