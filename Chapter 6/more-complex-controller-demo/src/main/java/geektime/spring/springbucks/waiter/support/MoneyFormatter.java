@@ -37,7 +37,7 @@ public class MoneyFormatter implements Formatter<Money> {
         }
         throw new ParseException(text, 0);
     }
-
+    // TODO_Joly: 这个的效果还没有看出来，要等到Thymeleaf
     @Override
     public String print(Money money, Locale locale) {
         if (money == null) {

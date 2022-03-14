@@ -1,3 +1,7 @@
+学习目的：
+        感受Spring MVC是怎么在原始的Servlet上进行bean的装配、方法的封装
+        顺便巩固注解和反射
+
 蜗牛版Spring MVC仿版：
     大致流程+注解+反射
     没有使用Spring框架：所以Servlet要自己写，tomcat要自己放
