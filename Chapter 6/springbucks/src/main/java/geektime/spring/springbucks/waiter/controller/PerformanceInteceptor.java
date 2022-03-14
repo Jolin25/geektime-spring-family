@@ -9,6 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * knowledge point:
+ * 拦截器：说明拦截之后执行的方法
+ */
 @Slf4j
 public class PerformanceInteceptor implements HandlerInterceptor {
     private ThreadLocal<StopWatch> stopWatch = new ThreadLocal<>();

@@ -18,26 +18,30 @@ import java.util.TimeZone;
 @EnableCaching
 public class WaiterServiceApplication implements WebMvcConfigurer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WaiterServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WaiterServiceApplication.class, args);
+    }
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new PerformanceInteceptor())
-				.addPathPatterns("/coffee/**").addPathPatterns("/order/**");
-	}
+    /**
+     * knowledge point:
+     * 用来配置拦截器，并且设置对什么请求进行拦截，拦截之后进行什么操作
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new PerformanceInteceptor())
+                .addPathPatterns("/coffee/**").addPathPatterns("/order/**");
+    }
 
-	@Bean
-	public Hibernate5Module hibernate5Module() {
-		return new Hibernate5Module();
-	}
+    @Bean
+    public Hibernate5Module hibernate5Module() {
+        return new Hibernate5Module();
+    }
 
-	@Bean
-	public Jackson2ObjectMapperBuilderCustomizer jacksonBuilderCustomizer() {
-		return builder -> {
-			builder.indentOutput(true);
-			builder.timeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-		};
-	}
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jacksonBuilderCustomizer() {
+        return builder -> {
+            builder.indentOutput(true);
+            builder.timeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        };
+    }
 }
