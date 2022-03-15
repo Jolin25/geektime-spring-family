@@ -50,7 +50,7 @@ public class HandlerMapper {
 		}
 		/*
 		 * 遍历classNames，获取每一个类名对应的Class实例，判断该类上是否有Controller注解，若有，
-		 * 则实例化该类，获取该类的类名，改为小驼峰（因为习惯吧），并将该实例和新的名字存在在ioc（用于存放Controller实例）中。
+		 * 则实例化该类，获取该类的类名，改为小驼峰（因为习惯吧：因为是本质上是对象变量啊，变量当然是小驼峰了），并将该实例和新的名字存在在上下文（用于存放Controller实例：对，Spring MVC 自己有个上下文）中。
 		 */
 		for (String className : classNames) {
 			try {
@@ -58,7 +58,7 @@ public class HandlerMapper {
 				Class<?> cl = Class.forName(className);
 				// 判断该类上是否有Controller注解
 				if (cl.isAnnotationPresent(Controller.class)) {
-					// 若有，则实例化该类，获取该类的类名,改为小驼峰,并将该实例和新的名字存在在ioc中
+					// 若有，则实例化该类，获取该类的类名,改为小驼峰,并将该实例和新的名字存在在上下文中
 					try {
 						Object controller = cl.newInstance();
 						String simpleName = cl.getSimpleName();

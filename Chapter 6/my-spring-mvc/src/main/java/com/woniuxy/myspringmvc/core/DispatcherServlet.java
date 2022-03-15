@@ -89,8 +89,9 @@ public class DispatcherServlet extends HttpServlet {
          * 这里类似于执行了ViewResolver和视图的作用：
          * 判断执行的controller包里的类的方法是否有ResponseBody注解，若有则将方法的返回值传给客户
          */
-        // 获取Method
-        Method method = mapper.getMethodMapping().get(request.getPathInfo());
+        // 获取Method（这里没有做非空判断，默认是可以找到的，实际的话是不一定的）
+        // Method method = mapper.getMethodMapping().get(request.getPathInfo());
+        Method method = mapper.getMethodMapping().get(request.getServletPath() + request.getPathInfo());
         /*
          * Returns any extra path information associated with the URL the client
          * sent when it made this request. The extra path information follows
@@ -104,10 +105,10 @@ public class DispatcherServlet extends HttpServlet {
         if (hasResponseBody) {
             // 如果有ResponseBody，则将返回值输出到客户端
             // 利用json哈
-            // 设置响应内容类型
+            // 设置响应内容类型 。 这里应该是ViewreSolver的作用
             response.setContentType("application/json;charset=utf-8");
             ObjectMapper om = new ObjectMapper();
-            // 将指定对象转为json，并利用指定输出流输出json
+            // 将指定对象转为json，并利用指定输出流输出json。这里是视图的作用
             om.writeValue(response.getOutputStream(), result);
             return;
         }
@@ -166,6 +167,7 @@ public class DispatcherServlet extends HttpServlet {
             if (f.isDirectory()) {
                 doScanner(packageName + "." + f.getName());
             } else {
+                // 不够严谨，应该不仅根据配置文件中设置的要扫描的package，还要根据该package下面的类上有没有注解来决定 ---> 后面实例化Controller的时候，判断Controller注解了
                 classNames.add(packageName + "." + f.getName().replace(".class", ""));
             }
         }
