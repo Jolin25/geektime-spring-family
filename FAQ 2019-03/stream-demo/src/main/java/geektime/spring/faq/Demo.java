@@ -2,18 +2,36 @@ package geektime.spring.faq;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Demo {
     public static void main(String[] args) {
         Arrays.asList("Foo", "Bar").stream()
                 .filter(s -> s.equalsIgnoreCase("foo"))
                 .map(s -> s.toUpperCase())
-                .forEach(System.out::println);
+                .forEach(System.out::println); // FOO
 
-        Arrays.stream(new String[] { "s1", "s2", "s3" })
+        Arrays.stream(new String[]{"s1", "s2", "s3"})
                 .map(s -> Arrays.asList(s))
                 .flatMap(l -> l.stream())
                 .forEach(System.out::println);
+
+        Arrays.asList("Foo", "Bar").stream()
+                .map(s -> Arrays.asList(s))
+                .flatMap(l -> l.stream())
+                .forEach(System.out::println);
+        /** knowledge point:  也就是说stream的操作没有改变原数据*/
+        String[] stArr = {"aa", "bb"};
+        Arrays.asList(stArr).stream()
+                .filter(s -> s.equalsIgnoreCase("aa"))
+                .map(s -> s.toUpperCase())
+                .forEach(System.out::println); // AA
+        System.out.println(stArr.length);//2
+
+        List<String> strings = Arrays.asList(stArr);
+        strings.stream()
+                .filter(s -> s.equalsIgnoreCase("aa"))
+                .map(s -> s.toUpperCase())
+                .forEach(System.out::println); // AA
+        System.out.println(strings.size());//2
     }
 }
