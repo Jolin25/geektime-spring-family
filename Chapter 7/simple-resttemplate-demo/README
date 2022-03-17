@@ -1,0 +1,2 @@
+消费REST服务：
+  使用Spring提供的RESTTemplate来消费REST服务

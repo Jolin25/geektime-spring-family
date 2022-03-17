@@ -21,41 +21,50 @@ import java.net.URI;
 @SpringBootApplication
 @Slf4j
 public class CustomerServiceApplication implements ApplicationRunner {
-	@Autowired
-	private RestTemplate restTemplate;
 
-	public static void main(String[] args) {
-		new SpringApplicationBuilder()
-				.sources(CustomerServiceApplication.class)
-				.bannerMode(Banner.Mode.OFF)
-				.web(WebApplicationType.NONE)
-				.run(args);
-	}
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-//		return new RestTemplate();
-		return builder.build();
-	}
+    @Autowired
+    private RestTemplate restTemplate;
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		URI uri = UriComponentsBuilder
-				.fromUriString("http://localhost:8080/coffee/{id}")
-				.build(1);
-		ResponseEntity<Coffee> c = restTemplate.getForEntity(uri, Coffee.class);
-		log.info("Response Status: {}, Response Headers: {}", c.getStatusCode(), c.getHeaders().toString());
-		log.info("Coffee: {}", c.getBody());
+    public static void main(String[] args) {
+        // TODO_Joly:SpringApplicationBuilder 是什么
+        // TODO_Joly: 这一串操作在干嘛
+        new SpringApplicationBuilder()
+                .sources(CustomerServiceApplication.class)
+                .bannerMode(Banner.Mode.OFF)
+                .web(WebApplicationType.NONE)
+                .run(args);
+    }
 
-		String coffeeUri = "http://localhost:8080/coffee/";
-		Coffee request = Coffee.builder()
-				.name("Americano")
-				.price(BigDecimal.valueOf(25.00))
-				.build();
-		Coffee response = restTemplate.postForObject(coffeeUri, request, Coffee.class);
-		log.info("New Coffee: {}", response);
+    /**
+     * knowledge point:
+     * 因为Spring Boot 没有自动配置 Rest Template，所以就要我们自己注入
+     */
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+//		return new RestTemplate();  // 第一种方式：直接new
+        return builder.build(); // 第二种方式： Spring Boot 提供了 RestTemplateBuilder，来构造RestTemplate
+    }
 
-		String s = restTemplate.getForObject(coffeeUri, String.class);
-		log.info("String: {}", s);
-	}
+    @Override
+    public void run(ApplicationArguments args) {
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:8080/coffee/{id}")
+                // 给路径参数传参
+                .build(1);
+        ResponseEntity<Coffee> c = restTemplate.getForEntity(uri, Coffee.class);
+        log.info("Response Status: {}, Response Headers: {}", c.getStatusCode(), c.getHeaders().toString());
+        log.info("Coffee: {}", c.getBody());
+
+        String coffeeUri = "http://localhost:8080/coffee/";
+        Coffee request = Coffee.builder()
+                .name("Americano")
+                .price(BigDecimal.valueOf(25.00))
+                .build();
+        Coffee response = restTemplate.postForObject(coffeeUri, request, Coffee.class);
+        log.info("New Coffee: {}", response);
+
+        String s = restTemplate.getForObject(coffeeUri, String.class);
+        log.info("String: {}", s);
+    }
 }
