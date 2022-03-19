@@ -9,7 +9,9 @@ import org.joda.money.Money;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.IOException;
-
+// DONE_Joly: StdDeserializer 是什么
+// 是Jackson里的，这就相当于是在Jackson进行数据处理的时候加入了用户的自定义处理方式
+// 因为继承了这个类，重写了里面的方法，那Jackson去调用deserialize方法的时候自然会调用到重写的
 @JsonComponent
 public class MoneyDeserializer extends StdDeserializer<Money> {
     protected MoneyDeserializer() {

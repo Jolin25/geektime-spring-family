@@ -27,8 +27,12 @@ public class CustomerServiceApplication implements ApplicationRunner {
     private RestTemplate restTemplate;
 
     public static void main(String[] args) {
-        // TODO_Joly:SpringApplicationBuilder 是什么
-        // TODO_Joly: 这一串操作在干嘛
+        // DONE_Joly: 这一串操作在干嘛
+        /** knowledge point:
+         *  因为这个项目是在消费REST服务，类似于浏览器，是不需要tomcat的，
+         *  所以就做个性化配置。
+         *  否则，因为引入了web依赖，Spring Boot就会自动的启动一个tomcat
+         * */
         new SpringApplicationBuilder()
                 .sources(CustomerServiceApplication.class)
                 .bannerMode(Banner.Mode.OFF)

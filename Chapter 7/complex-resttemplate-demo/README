@@ -1,0 +1,4 @@
+Spring：REST Client：Restful Template 高阶用法
+1.定义请求头内容
+2.对响应正文进行自定义类型转换
+    2.1 如何转换需要用户指定（这里用的是MoneyDeserializer和MoneySerializer）
