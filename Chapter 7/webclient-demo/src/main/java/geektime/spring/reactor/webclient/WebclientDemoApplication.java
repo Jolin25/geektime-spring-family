@@ -22,57 +22,61 @@ import java.util.concurrent.CountDownLatch;
 @SpringBootApplication
 @Slf4j
 public class WebclientDemoApplication implements ApplicationRunner {
-	@Autowired
-	private WebClient webClient;
+    @Autowired
+    private WebClient webClient;
 
-	public static void main(String[] args) {
-		new SpringApplicationBuilder(WebclientDemoApplication.class)
-				.web(WebApplicationType.NONE)
-				.bannerMode(Banner.Mode.OFF)
-				.run(args);
-	}
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(WebclientDemoApplication.class)
+                .web(WebApplicationType.NONE)
+                .bannerMode(Banner.Mode.OFF)
+                .run(args);
+    }
 
-	@Bean
-	public WebClient webClient(WebClient.Builder builder) {
-		return builder.baseUrl("http://localhost:8080").build();
-	}
+    /**
+     * knowledge point:
+     * Spring Boot 没有自动配置，要手动加入到上下文中
+     */
+    @Bean
+    public WebClient webClient(WebClient.Builder builder) {
+        return builder.baseUrl("http://localhost:8080").build();
+    }
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		CountDownLatch cdl = new CountDownLatch(2);
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        CountDownLatch cdl = new CountDownLatch(2);
 
-		webClient.get()
-				.uri("/coffee/{id}", 1)
-				.accept(MediaType.APPLICATION_JSON_UTF8)
-				.retrieve()
-				.bodyToMono(Coffee.class)
-				.doOnError(t -> log.error("Error: ", t))
-				.doFinally(s -> cdl.countDown())
-				.subscribeOn(Schedulers.single())
-				.subscribe(c -> log.info("Coffee 1: {}", c));
+        webClient.get()
+                .uri("/coffee/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .retrieve()
+                .bodyToMono(Coffee.class)
+                .doOnError(t -> log.error("Error: ", t))
+                .doFinally(s -> cdl.countDown())
+                .subscribeOn(Schedulers.single())
+                .subscribe(c -> log.info("Coffee 1: {}", c));
 
-		Mono<Coffee> americano = Mono.just(
-				Coffee.builder()
-						.name("americano")
-						.price(Money.of(CurrencyUnit.of("CNY"), 25.00))
-						.build()
-		);
-		webClient.post()
-				.uri("/coffee/")
-				.body(americano, Coffee.class)
-				.retrieve()
-				.bodyToMono(Coffee.class)
-				.doFinally(s -> cdl.countDown())
-				.subscribeOn(Schedulers.single())
-				.subscribe(c -> log.info("Coffee Created: {}", c));
+        Mono<Coffee> americano = Mono.just(
+                Coffee.builder()
+                        .name("americano")
+                        .price(Money.of(CurrencyUnit.of("CNY"), 25.00))
+                        .build()
+        );
+        webClient.post()
+                .uri("/coffee/")
+                .body(americano, Coffee.class)
+                .retrieve()
+                .bodyToMono(Coffee.class)
+                .doFinally(s -> cdl.countDown())
+                .subscribeOn(Schedulers.single())
+                .subscribe(c -> log.info("Coffee Created: {}", c));
 
-		cdl.await();
+        cdl.await();
 
-		webClient.get()
-				.uri("/coffee/")
-				.retrieve()
-				.bodyToFlux(Coffee.class)
-				.toStream()
-				.forEach(c -> log.info("Coffee in List: {}", c));
-	}
+        webClient.get()
+                .uri("/coffee/")
+                .retrieve()
+                .bodyToFlux(Coffee.class)
+                .toStream()
+                .forEach(c -> log.info("Coffee in List: {}", c));
+    }
 }

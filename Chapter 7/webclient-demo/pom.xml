@@ -19,6 +19,7 @@
 	</properties>
 
 	<dependencies>
+		<!--这里没有用web而是用的webflux，这里只是单纯的想用里面引入的web client-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
