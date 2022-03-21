@@ -35,7 +35,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-
+		<!--要被自动配置的对象-->
 		<dependency>
 			<groupId>geektime.spring.hello</groupId>
 			<artifactId>greeting</artifactId>

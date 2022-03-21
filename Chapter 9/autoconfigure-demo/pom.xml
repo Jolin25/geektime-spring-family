@@ -26,14 +26,14 @@
 			<!--<version>0.0.1-SNAPSHOT</version>-->
 		<!--</dependency>-->
 
-		<!-- 以下是手工实现的自动配置 -->
+		<!-- B：以下是手工实现的自动配置 -->
 		<!--<dependency>-->
 		<!--<groupId>geektime.spring.hello</groupId>-->
 		<!--<artifactId>geektime-autoconfigure-backport</artifactId>-->
 		<!--<version>0.0.1-SNAPSHOT</version>-->
 		<!--</dependency>-->
 
-		<!-- 以下是基于Spring Boot的自动配置 -->
+		<!-- A:以下是基于Spring Boot的自动配置 -->
 		<!--自己的自动配置-->
 		<dependency>
 			<groupId>geektime.spring.hello</groupId>
