@@ -35,6 +35,10 @@
 			<groupId>geektime.spring.hello</groupId>
 			<artifactId>greeting</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<!--DONE_Joly：在编译和测试过程中有效,最后生成的jar包时不会加入-->
+			<!--因为我用的scope是provided，并不会把它传递依赖进来。这个依赖应该由starter-dependency来引入，
+			autoconfigure要做的就是Classpath里存在这个类时做配置，如果它自己就把这个依赖加进来了，
+			我岂不是连判断都不用判了。-->
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

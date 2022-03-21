@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 geektime.spring.hello.greeting.GreetingAutoConfiguration
+# 反斜杠的意思类似于英文里的-，表示这行写不下，写到下一行，所以test=aaa\bbb,等价于test=aaabbb

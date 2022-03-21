@@ -34,12 +34,13 @@
 		<!--</dependency>-->
 
 		<!-- 以下是基于Spring Boot的自动配置 -->
+		<!--自己的自动配置-->
 		<dependency>
 			<groupId>geektime.spring.hello</groupId>
 			<artifactId>geektime-spring-boot-autoconfigure</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
+		<!--自己的自动配置要配置的对象-->
 		<dependency>
 			<groupId>geektime.spring.hello</groupId>
 			<artifactId>greeting</artifactId>

@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -45,6 +46,7 @@ public class CustomerServiceApplication implements ApplicationRunner {
      * 因为Spring Boot 没有自动配置 Rest Template，所以就要我们自己注入
      */
     @Bean
+    @Scope("SINGLETON") // spring默认的bean的作用域就是singleton
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
 //		return new RestTemplate();  // 第一种方式：直接new
         return builder.build(); // 第二种方式： Spring Boot 提供了 RestTemplateBuilder，来构造RestTemplate

@@ -19,6 +19,7 @@
 	</properties>
 
 	<dependencies>
+		<!--也就是说用的还是Rest Template-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -34,7 +35,7 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-
+		<!--对Rest Template使用的HTTP支持进行了定制化：选择了httpclient-->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>

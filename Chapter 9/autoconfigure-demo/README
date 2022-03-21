@@ -1,0 +1,9 @@
+Spring Boot:
+在Spring Boot的自动配置机制上添加自己的配置为自动配置
+
+Spring Boot 怎么识别到新的自动配置类的呢？--->
+1.通过META-INF里的
+spring.factories，只要在这里面声明了自动配置类，Spring Boot就会
+去进行配置操作.Spring Boot 会加载自身的spring.factories也会加载
+依赖包里的spring.factories.
+2.如果这个自动配置类可以被ComponentScan扫描到，也会生效
