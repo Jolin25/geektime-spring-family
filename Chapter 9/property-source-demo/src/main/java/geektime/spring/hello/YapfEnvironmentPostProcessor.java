@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 @Slf4j
 public class YapfEnvironmentPostProcessor implements EnvironmentPostProcessor {
     private PropertiesPropertySourceLoader loader = new PropertiesPropertySourceLoader();
+
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         MutablePropertySources propertySources = environment.getPropertySources();

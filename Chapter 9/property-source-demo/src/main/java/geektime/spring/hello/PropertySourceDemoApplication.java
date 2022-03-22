@@ -10,15 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @Slf4j
 public class PropertySourceDemoApplication implements ApplicationRunner {
-	@Value("${geektime.greeting}")
-	private String greeting;
+    @Value("${geektime.greeting}")
+    private String greeting;
 
-	public static void main(String[] args) {
-		SpringApplication.run(PropertySourceDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PropertySourceDemoApplication.class, args);
+    }
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		log.info("{}", greeting);
-	}
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        log.info("{}", greeting);
+    }
 }
