@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @SpringBootApplication
+// Spring Boot Admin 启动
 @EnableAdminServer
 public class SbaServerApplication extends WebSecurityConfigurerAdapter {
 	@Autowired
@@ -19,7 +20,7 @@ public class SbaServerApplication extends WebSecurityConfigurerAdapter {
 	public static void main(String[] args) {
 		SpringApplication.run(SbaServerApplication.class, args);
 	}
-
+	// Spring Security
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		String adminContextPath = adminServerProperties.getContextPath();

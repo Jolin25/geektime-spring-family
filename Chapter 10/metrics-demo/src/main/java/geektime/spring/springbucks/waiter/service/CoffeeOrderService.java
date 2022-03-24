@@ -14,21 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ * 自定义度量指标
+* @author jrl
+* @date 2022/3/23
+*/
 @Service
 @Transactional
 @Slf4j
 public class CoffeeOrderService implements MeterBinder {
     @Autowired
     private CoffeeOrderRepository orderRepository;
-
+    /*每次创建订单时都会+1*/
     private Counter orderCounter = null;
 
     public CoffeeOrder get(Long id) {
         return orderRepository.getOne(id);
     }
 
-    public CoffeeOrder createOrder(String customer, Coffee...coffee) {
+    public CoffeeOrder createOrder(String customer, Coffee... coffee) {
         CoffeeOrder order = CoffeeOrder.builder()
                 .customer(customer)
                 .items(new ArrayList<>(Arrays.asList(coffee)))
@@ -53,6 +57,7 @@ public class CoffeeOrderService implements MeterBinder {
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
+        /*注册了一个叫order.count的counter，把这个counter赋值给了orderCounter*/
         this.orderCounter = meterRegistry.counter("order.count");
     }
 }
