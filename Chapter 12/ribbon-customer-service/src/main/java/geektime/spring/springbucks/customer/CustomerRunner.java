@@ -35,6 +35,8 @@ public class CustomerRunner implements ApplicationRunner {
         queryOrder(id);
     }
 
+    /*说明其他服务（即使没有注册到注册中心组）
+    可以找到（通过DiscoveryClient：Spring Cloud提供的抽象）注册到注册中心中的服务*/
     private void showServiceInstances() {
         log.info("DiscoveryClient: {}", discoveryClient.getClass().getName());
         discoveryClient.getInstances("waiter-service").forEach(s -> {
@@ -44,7 +46,10 @@ public class CustomerRunner implements ApplicationRunner {
 
     private void readMenu() {
         ParameterizedTypeReference<List<Coffee>> ptr =
-                new ParameterizedTypeReference<List<Coffee>>() {};
+                new ParameterizedTypeReference<List<Coffee>>() {
+                };
+        // 访问的时候根据注册到注册中心的名称来进行访问
+        //waiter-service会在实际调用时被替换为具体的目标服务器和端口的，并不是真的去调用waiter-service这个地址，会做个转换
         ResponseEntity<List<Coffee>> list = restTemplate
                 .exchange("http://waiter-service/coffee/", HttpMethod.GET, null, ptr);
         list.getBody().forEach(c -> log.info("Coffee: {}", c));

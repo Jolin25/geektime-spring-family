@@ -17,6 +17,7 @@ import java.util.TimeZone;
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableCaching
+/** knowledge point: 声明使用Eureka */
 @EnableDiscoveryClient
 public class WaiterServiceApplication implements WebMvcConfigurer {
 

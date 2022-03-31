@@ -28,12 +28,12 @@ public class CustomerServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(CustomerServiceApplication.class, args);
     }
-
+    /** knowledge point:  需要注册进去。单纯的实现接口是覆盖不了的*/
     @Bean
     public DiscoveryClient fixedDiscoveryClient() {
         return new FixedDiscoveryClient();
     }
-
+    /** knowledge point:  需要注册进去。单纯的实现接口是覆盖不了的*/
     @Bean
     public FixedServerList fixedServerList() {
         return new FixedServerList();

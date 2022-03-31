@@ -2,4 +2,5 @@ server.port: 8090
 
 waiter:
   services:
+#    - 这根杠杠是什么，表示集合中的元素吗，是哒，这个services就是个列表
     - localhost:8080

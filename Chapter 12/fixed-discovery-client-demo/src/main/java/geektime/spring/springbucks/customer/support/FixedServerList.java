@@ -20,7 +20,7 @@ public class FixedServerList implements ServerList<Server> {
     public List<Server> getUpdatedListOfServers() {
         return getServers();
     }
-
+    /** knowledge point:  通过DiscoveryClient来发现服务*/
     private List<Server> getServers() {
         return discoveryClient.getInstances(FixedDiscoveryClient.SERVICE_ID).stream()
                 .map(i -> new Server(i.getHost(), i.getPort()))

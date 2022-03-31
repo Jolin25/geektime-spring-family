@@ -34,7 +34,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <!--这个是RestTemplate支持的HTTP库之一：httpComponents-->
+        <!--这个是RestTemplate支持的HTTP库之一：httpclient-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

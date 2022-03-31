@@ -28,6 +28,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+		<!--因为自定义负载均衡是在 Ribbon 的基础上做的，所以引入了 Ribbon-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
@@ -64,6 +65,7 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!--因为自定义服务发现是在 Spring Cloud 提供的抽象上做的-->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
