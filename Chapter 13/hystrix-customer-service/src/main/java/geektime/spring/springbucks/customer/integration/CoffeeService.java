@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
+// fallback = FallbackCoffeeService.class ---> Feign 对 Hystrix 的支持
 @FeignClient(name = "waiter-service", contextId = "coffee",
         qualifier = "coffeeService", path="/coffee",
         fallback = FallbackCoffeeService.class)

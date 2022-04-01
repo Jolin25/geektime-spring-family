@@ -33,6 +33,7 @@ public class CustomerController {
     }
 
     @PostMapping("/order")
+    /** knowledge point:  HystrixCommand注解可以指明熔断了以后调用的方法*/
     @HystrixCommand(fallbackMethod = "fallbackCreateOrder")
     public CoffeeOrder createOrder() {
         NewOrderRequest orderRequest = NewOrderRequest.builder()

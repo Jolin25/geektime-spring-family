@@ -34,6 +34,9 @@ public class CustomerController {
         circuitBreaker = registry.circuitBreaker("menu");
     }
 
+    /**
+     * knowledge point:  以编程的方式来做熔断保护
+     */
     @GetMapping("/menu")
     public List<Coffee> readMenu() {
         return Try.ofSupplier(
@@ -43,6 +46,9 @@ public class CustomerController {
                 .get();
     }
 
+    /**
+     * knowledge point:  以注解的方式来做熔断保护
+     */
     @PostMapping("/order")
     @io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker(name = "order")
     public CoffeeOrder createOrder() {

@@ -17,13 +17,14 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @EnableDiscoveryClient
 @EnableFeignClients
+/*开启AspectJ。但其实Spring Boot 自动会做一个开启的。所以这里可以不加*/
 @EnableAspectJAutoProxy
 public class CustomerServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerServiceApplication.class, args);
 	}
-
+// TODO_Joly:在配置什么
 	@Bean
 	public CloseableHttpClient httpClient() {
 		return HttpClients.custom()
