@@ -26,7 +26,6 @@ public class ContextHierarchyDemoApplication implements ApplicationRunner {
     public static void main(String[] args) {
         SpringApplication.run(ContextHierarchyDemoApplication.class, args);
     }
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // 加载配置类：通过spring

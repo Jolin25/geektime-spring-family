@@ -30,6 +30,7 @@ public class CoffeeOrderService implements MeterBinder {
     private CoffeeOrderRepository orderRepository;
     @Autowired
     private OrderProperties orderProperties;
+    // 合着您家waiter千千万，用一个扔一个
     private String waiterId = UUID.randomUUID().toString();
 
     private Counter orderCounter = null;
