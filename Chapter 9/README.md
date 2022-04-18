@@ -6,6 +6,7 @@
 #### 项目间关系
 * autoconfigure-demo：演示如何使用starter
 * geektime-spring-boot-autoconfigure：演示如何利用 Spring Boot 的扩展点来根据A项目进行自动装配
+    * 利用 Spring Boot 会去扫描 META-INF 下的 spring.factories 文件后根据里面的配置项来扫描对应的自动配置类
 * geektime-spring-boot-starter：演示组装一个 starter
 * greeting：原始的被引入的项目A
 ### 演示自动装配

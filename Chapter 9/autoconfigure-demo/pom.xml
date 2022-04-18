@@ -20,11 +20,11 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <!--C: 以下是基于 Spring Boot 的自动配置。手工创建的 starter-->
-        <!--<dependency>-->
-        <!--<groupId>geektime.spring.hello</groupId>-->
-        <!--<artifactId>geektime-spring-boot-starter</artifactId>-->
-        <!--<version>0.0.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
+        <dependency>
+        <groupId>geektime.spring.hello</groupId>
+        <artifactId>geektime-spring-boot-starter</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!-- B：以下是手工实现的自动配置 （基于 Spring）-->
         <!--<dependency>-->
@@ -34,18 +34,18 @@
         <!--</dependency>-->
 
         <!-- A:以下是基于Spring Boot的自动配置 -->
-        <!--自己的自动配置-->
-        <dependency>
-            <groupId>geektime.spring.hello</groupId>
-            <artifactId>geektime-spring-boot-autoconfigure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <!--自己的自动配置要配置的对象-->
-        <dependency>
-            <groupId>geektime.spring.hello</groupId>
-            <artifactId>greeting</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        &lt;!&ndash;自己的自动配置&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>geektime.spring.hello</groupId>-->
+<!--            <artifactId>geektime-spring-boot-autoconfigure</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;自己的自动配置要配置的对象&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>geektime.spring.hello</groupId>-->
+<!--            <artifactId>greeting</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
