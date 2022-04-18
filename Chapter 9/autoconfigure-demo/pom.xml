@@ -19,14 +19,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+        <!--C: 以下是基于 Spring Boot 的自动配置。手工创建的 starter-->
         <!--<dependency>-->
         <!--<groupId>geektime.spring.hello</groupId>-->
         <!--<artifactId>geektime-spring-boot-starter</artifactId>-->
         <!--<version>0.0.1-SNAPSHOT</version>-->
         <!--</dependency>-->
 
-        <!-- B：以下是手工实现的自动配置 -->
+        <!-- B：以下是手工实现的自动配置 （基于 Spring）-->
         <!--<dependency>-->
         <!--<groupId>geektime.spring.hello</groupId>-->
         <!--<artifactId>geektime-autoconfigure-backport</artifactId>-->

@@ -20,6 +20,7 @@
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
+                <!--说明没有使用 Spring Boot 运行期的功能 -->
                 <scope>import</scope>
             </dependency>
         </dependencies>
