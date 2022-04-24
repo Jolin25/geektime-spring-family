@@ -14,6 +14,8 @@ import java.sql.SQLException;
 @SpringBootApplication
 @Slf4j
 public class DataSourceDemoApplication implements CommandLineRunner {
+	// 所以这是在JDBC的这层抽象上
+	// Spring Boot 会自动配置一个 HikariCP实现Datasource
 	@Autowired
 	private DataSource dataSource;
 
