@@ -12,6 +12,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
 
+/**
+ * @author Joly
+ */
 @SpringBootApplication
 @Slf4j
 public class SimpleJdbcDemoApplication implements CommandLineRunner {

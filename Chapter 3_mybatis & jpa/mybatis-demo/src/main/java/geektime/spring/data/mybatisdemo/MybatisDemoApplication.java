@@ -16,7 +16,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @MapperScan("geektime.spring.data.mybatisdemo.mapper")
 public class MybatisDemoApplication implements ApplicationRunner {
-	// 如何注入，以及如何找到bean
     @Autowired
     private CoffeeMapper coffeeMapper;
 
