@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.concurrent.TimeUnit;
 
+
 @SpringBootApplication
 @Slf4j
 @EnableDiscoveryClient

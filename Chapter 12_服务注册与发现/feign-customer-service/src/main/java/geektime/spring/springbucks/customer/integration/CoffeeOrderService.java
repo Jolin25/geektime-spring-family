@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+//太可爱了这个注解，就是在说我是个可爱的client呀
 @FeignClient(name = "waiter-service", contextId = "coffeeOrder")
 public interface CoffeeOrderService {
     @GetMapping("/order/{id}")
