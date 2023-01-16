@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ResponseStatus;
 /** knowledge point: 这是一个自定义异常类
- *  1.ResponseStatus注解用于指定异常出现后返回给前端的Http状态
+ *  1. ResponseStatus 注解 用于指定异常出现后返回给前端的 Http 状态
  * */
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 @Getter

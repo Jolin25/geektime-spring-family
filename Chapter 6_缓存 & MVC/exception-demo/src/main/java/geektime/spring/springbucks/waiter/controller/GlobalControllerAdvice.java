@@ -12,11 +12,11 @@ import java.util.Map;
 /**
  * knowledge point:
  * ControllerAdvice + ResponseBody
- * 所以map会被作为ResponseBody返回
+ * 所以 map 会被作为 ResponseBody 返回
  */
 @RestControllerAdvice
 public class GlobalControllerAdvice {
-    // 说明这个ExceptionHandler用于处理ValidationException
+    // ExceptionHandler 注解：说明这个ExceptionHandler用于处理ValidationException
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> validationExceptionHandler(ValidationException exception) {

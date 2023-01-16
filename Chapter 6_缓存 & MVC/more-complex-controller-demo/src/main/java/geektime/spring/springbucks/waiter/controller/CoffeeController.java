@@ -1,5 +1,6 @@
 package geektime.spring.springbucks.waiter.controller;
 
+
 import geektime.spring.springbucks.waiter.controller.request.NewCoffeeRequest;
 import geektime.spring.springbucks.waiter.controller.request.ValidList;
 import geektime.spring.springbucks.waiter.controller.request.ValidOne;

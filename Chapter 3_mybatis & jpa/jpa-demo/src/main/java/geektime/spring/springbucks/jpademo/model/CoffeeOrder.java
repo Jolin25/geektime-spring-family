@@ -29,6 +29,10 @@ public class CoffeeOrder implements Serializable {
     @GeneratedValue
     private Long id;
     private String customer;
+
+    // 和 T_ORDER_COFFEE 这个表 有了关联关系，多对多
+    // 这个属性就是一张表
+    //业务含义：也就是说，每个订单都对应一个该订单的咖啡列表，这个列表里记录了订单号和咖啡id
     @ManyToMany
     @JoinTable(name = "T_ORDER_COFFEE")
     private List<Coffee> items;

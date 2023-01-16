@@ -13,6 +13,7 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 
+// 这个是 hibernate 的注解，用来表明 这个父类也算到表里
 @MappedSuperclass
 @Data
 @NoArgsConstructor
