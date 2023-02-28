@@ -27,6 +27,7 @@ public class SimpleJdbcDemoApplication implements CommandLineRunner {
         SpringApplication.run(SimpleJdbcDemoApplication.class, args);
     }
 
+    // TODO_Joly:这是个什么用法？
     @Bean
     @Autowired
     public SimpleJdbcInsert simpleJdbcInsert(JdbcTemplate jdbcTemplate) {
