@@ -1,0 +1,7 @@
+## 应用-gis
+### 总结
+gis 使用了图形化的工具来生成 操作 MyBatis 的代码，而这个项目使用的是代码来生成：利用 generatorConfig.xml 来进行了表、生成位置的配置
+1. 在 gis 里，会使用一个 mybatis-generator 工具，在外部生成代码，然后手动放入系统代码中。
+2. 在这些代码里，就包括了 xxxExample，xxxDao，xxxDao.xml,xxxBaseDao.xml
+3. 在业务代码中，可以使用xxxExample.Criteria 来进行条件的简单设置，然后使用 xxxDao.findByExample(xxxExample)进行查询
+4. 这个风格非常像 JPA
