@@ -19,19 +19,19 @@
         </jdbcConnection>
 
         <javaModelGenerator targetPackage="geektime.spring.data.mybatis.model"
-                            targetProject="./Chapter 3_mybatis-jpa/mybatis-generator-demo/src/main/java">
+                            targetProject="./mybatis-generator-demo/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="geektime.spring.data.mybatis.mapper"
-                         targetProject="./Chapter 3_mybatis-jpa/mybatis-generator-demo/src/main/java">
+        <sqlMapGenerator targetPackage="src/main/resources/mapper/geektime/spring/data/mybatis/mapper"
+                         targetProject="./mybatis-generator-demo">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <javaClientGenerator type="MIXEDMAPPER"
                              targetPackage="geektime.spring.data.mybatis.mapper"
-                             targetProject="./Chapter 3_mybatis-jpa/mybatis-generator-demo/src/main/java">
+                             targetProject="./mybatis-generator-demo/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
