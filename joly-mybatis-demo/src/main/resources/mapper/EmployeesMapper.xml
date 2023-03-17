@@ -2,8 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.example.mapper.EmployeesMapper">
+    <resultMap id="BaseResultMap" type="org.example.pojo.Employees">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+        <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+        <result column="email_address" property="emailAddress" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="insertXmlOne">
-        INSERT INTO employees VALUES (100,'Mona','-a','America');
+        INSERT INTO employees VALUES (101,'Mona','-a','America');
     </insert>
+    <!-- 配合 JavaGuide 面试题
+     https://javaguide.cn/system-design/framework/mybatis/mybatis-interview.html-->
+    <select id="selectFlexible" resultMap="BaseResultMap">
+        SELECT * FROM employees WHERE ${column} = #{value};
+    </select>
+
+    <select id="selectById" resultType="org.example.pojo.Employees">
+        select * from employees where id = #{id};
+    </select>
+    
+    <select id="selectFirstNameById" resultType="String">
+        select first_name from employees where id = #{id};
+    </select>
 </mapper>
 

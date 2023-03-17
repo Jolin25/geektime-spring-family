@@ -1,9 +1,12 @@
 package org.example.pojo;
 
+import lombok.Data;
+
 /**
  * @author jrl
  * @date Create in 12:52 2023/3/15
  */
+@Data
 public class Employees {
 	int id;
 	String firstName;
@@ -12,7 +15,7 @@ public class Employees {
 
 	public Employees() {
 	}
-	// TODO_Joly:需要构造器吗？
+
 	public Employees(int id, String firstName, String lastName, String emailAddress) {
 		this.id = id;
 		this.firstName = firstName;

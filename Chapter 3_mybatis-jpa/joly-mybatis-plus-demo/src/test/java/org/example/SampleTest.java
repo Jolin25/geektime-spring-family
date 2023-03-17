@@ -14,11 +14,18 @@ public class SampleTest {
 	@Autowired
 	private UserMapper userMapper;
 
+	// @Test
+	// public void testSelect() {
+	// 	System.out.println(("----- selectAll method test ------"));
+	// 	List<SysUser> userList = userMapper.selectList(null);
+	// 	Assertions.assertEquals(5, userList.size());
+	// 	userList.forEach(System.out::println);
+	// }
+
 	@Test
-	public void testSelect() {
-		System.out.println(("----- selectAll method test ------"));
-		List<SysUser> userList = userMapper.selectList(null);
-		Assertions.assertEquals(5, userList.size());
-		userList.forEach(System.out::println);
+	public void testSelectByXML1() {
+		System.out.println("------------testSelectByXML1------------");
+		List<SysUser> list = userMapper.selectByXML1();
+		list.forEach(System.out::println);
 	}
 }
