@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.example.mapper.EmployeesMapper">
-    <resultMap id="BaseResultMap" type="org.example.pojo.Employees">
+<mapper namespace="org.example.mapper.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="org.example.pojo.Employee">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
         <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
@@ -10,20 +10,144 @@
     </resultMap>
 
     <insert id="insertXmlOne">
-        INSERT INTO employees VALUES (101,'Mona','-a','America');
+        INSERT INTO employee VALUES (101,'Mona','-a','America');
     </insert>
     <!-- 配合 JavaGuide 面试题
      https://javaguide.cn/system-design/framework/mybatis/mybatis-interview.html-->
-    <select id="selectFlexible" resultMap="BaseResultMap">
-        SELECT * FROM employees WHERE ${column} = #{value};
+
+
+    <!-- MyBatis 是否支持 重载：在 xml 层不支持，但是我们可以通过 动态 SQL 来实现。
+         但是也有限制，这涉及到了 MyBatis 的实现，
+         总之，只能一个无参，一个有参-->
+    <select id="selectOverload" resultMap="BaseResultMap">
+        select * from employee
+        <where>
+            <if test="firstName != null">
+                and first_name = #{firstName}
+            </if>
+            <if test="firstName == null">
+                and id = 1
+            </if>
+        </where>
+    </select>
+    <!--    <select id="selectOverload" parameterType="Integer">-->
+    <!--        select * from employee-->
+    <!--        where id = 2;-->
+    <!--    </select>-->
+    <!--SELECT-->
+
+    <!--NEE BEE:
+        ${} 是 property 文件的占位符，就是会直接替换${}；所以就可以用来放置程序员可以控制的部分；
+        #{} MyBatis 会使用 JDBC 的 PreparedStatement 来进行设置，所以可以防止 SQL 注入。
+        一般情况下，就是直接用 #{} 好吧。-->
+    <select id="selectFlexibleGood" resultMap="BaseResultMap">
+        SELECT * FROM employee WHERE ${column} = #{value};
+    </select>
+    <!-- 233333,#{}果然防止了 SQL 注入！漂亮！-->
+    <select id="selectFlexibleBad" resultMap="BaseResultMap">
+        SELECT * FROM employee WHERE #{column} = #{value};
+    </select>
+    <select id="selectById" resultType="org.example.pojo.Employee">
+        select * from employee where id = #{id};
     </select>
 
-    <select id="selectById" resultType="org.example.pojo.Employees">
-        select * from employees where id = #{id};
-    </select>
-    
     <select id="selectFirstNameById" resultType="String">
-        select first_name from employees where id = #{id};
+        select first_name from employee where id = #{id};
+    </select>
+
+
+    <!--INSERT-->
+    <insert id="insertOne">
+        insert into employee (id,first_name,last_name,email_address)
+        values (200,'fix','one','up coffee');
+    </insert>
+
+    <insert id="insertOneByType" parameterType="org.example.pojo.Employee">
+        insert into employee (id,first_name,last_name,email_address)
+        values (#{id},#{firstName},#{lastName},#{emailAddress});
+    </insert>
+
+    <insert id="insertOneByTypeNoId" parameterType="org.example.pojo.Employee">
+        insert into employee ( first_name,last_name,email_address)
+        values ( #{firstName},#{lastName},#{emailAddress});
+    </insert>
+
+    <!--动态 SQL-->
+    <select id="selectUseIfOne" resultMap="BaseResultMap">
+        select * from employee
+        where id is not null
+        <if test="firstName != null">
+            and first_name = #{firstName}
+        </if>
+    </select>
+
+    <select id="selectUseChooseOne" resultMap="BaseResultMap">
+        select * from employee
+        <where>
+            <choose>
+                <when test="firstName != null">
+                    and first_name = #{firstName}
+                </when>
+                <otherwise>
+                    and last_name = #{lastName}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!-- set 元素会动态地在行首插入 SET 关键字，
+    并会删掉额外的逗号（这些逗号是在使用条件语句给列赋值时引入的）-->
+    <update id="updateUseSet" parameterType="org.example.pojo.Employee">
+        update employee
+        <set>
+            <if test="firstName != null">
+                first_name = #{firstName},
+            </if>
+            <if test="lastName != null">
+                last_name = #{lastName},
+            </if>
+            <if test="emailAddress != null">
+                email_address = #{emailAddress}
+            </if>
+        </set>
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateUseTrim" parameterType="org.example.pojo.Employee">
+        update employee
+        <trim prefix="set" suffixOverrides=",">
+            <if test="firstName != null">
+                first_name = #{firstName},
+            </if>
+            <if test="lastName != null">
+                last_name = #{lastName},
+            </if>
+        </trim>
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <select id="selectUseForeach" resultMap="BaseResultMap">
+        select * from employee
+        <where>
+            <foreach collection="list" index="index" item="item"
+                     open="id in (" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="selectUseBind" resultMap="BaseResultMap">
+        <bind name="pattern" value="'%'+ _parameter +'%'"/>
+        select * from employee
+        where first_name like #{pattern}
     </select>
 </mapper>
 

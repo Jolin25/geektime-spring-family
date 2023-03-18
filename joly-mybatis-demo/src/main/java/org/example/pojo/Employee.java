@@ -1,22 +1,24 @@
 package org.example.pojo;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * @author jrl
  * @date Create in 12:52 2023/3/15
  */
+@Builder
 @Data
-public class Employees {
+public class Employee {
 	int id;
 	String firstName;
 	String lastName;
 	String emailAddress;
 
-	public Employees() {
+	public Employee() {
 	}
 
-	public Employees(int id, String firstName, String lastName, String emailAddress) {
+	public Employee(int id, String firstName, String lastName, String emailAddress) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -53,5 +55,15 @@ public class Employees {
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", emailAddress='" + emailAddress + '\'' +
+				'}';
 	}
 }
