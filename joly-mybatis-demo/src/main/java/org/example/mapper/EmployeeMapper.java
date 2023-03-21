@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.example.pojo.Employee;
+import org.example.pojo.Page;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
 // knowledge use:应该是给 MyBatis 做拦截用的
 @Mapper
 public interface EmployeeMapper {
+	Page<Employee> encapsulation();
+
 	/**
 	 * knowledge point:
 	 * MyBatis 使用 JDBC 将 pojo 映射为 数据库字段
@@ -23,8 +26,9 @@ public interface EmployeeMapper {
 
 	int insertXmlOne();
 
-	List<Employee>  selectFlexibleGood(@Param("column") String column, @Param("value") String value);
-	List<Employee>  selectFlexibleBad(@Param("column") String column, @Param("value") String value);
+	List<Employee> selectFlexibleGood(@Param("column") String column, @Param("value") String value);
+
+	List<Employee> selectFlexibleBad(@Param("column") String column, @Param("value") String value);
 
 	Employee selectById(int id);
 
@@ -49,5 +53,10 @@ public interface EmployeeMapper {
 	List<Employee> selectUseBind(String value);
 
 	Employee selectOverload(@Param("firstName") String firstName);
+
 	Employee selectOverload();
+
+	void insertBatch(List<Employee> list);
+
+	Employee selectMapping(Integer id);
 }

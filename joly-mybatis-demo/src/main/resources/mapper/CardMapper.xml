@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.mapper.CardMapper">
+    <resultMap id="BaseResultMap" type="org.example.pojo.Card">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <!--一对多-->
+        <collection property="employeeList" ofType="org.example.pojo.Employee">
+            <!-- 注意这个 id -->
+            <id column="eid" property="id" jdbcType="INTEGER"/>
+            <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+            <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+            <result column="email_address" property="emailAddress" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="BaseResultMapTwo" type="org.example.pojo.Card">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <!--一对多-->
+        <!--这相当于是个子查询，先在主查询里面查到集合，然后再去子查询里面根据集合查询。-->
+        <!-- 注意 select 和 column，column 是在说 左边是select里面要用的，右边是本表里面的-->
+        <collection property="employeeList" ofType="org.example.pojo.Employee"
+                    select="oneToManySon"
+                    column="{ first_name = employee_first_name }">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+            <result column="last_name" property="lastName" jdbcType="VARCHAR"/>
+            <result column="email_address" property="emailAddress" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+
+    <!-- 配合 JavaGuide 面试题
+     https://javaguide.cn/system-design/framework/mybatis/mybatis-interview.html-->
+
+    <!-- 一对多查询 -->
+    <!-- 嵌套结果 方式:
+         就是把 执行一条 SQL，然后把结果拿出来进行封装-->
+    <select id="oneToMany" resultMap="BaseResultMap">
+        select c.id,c.name,e.id eid,e.first_name,e.last_name,e.email_address from card c
+        left join employee e on c.employee_first_name = e.first_name;
+    </select>
+
+    <!-- 嵌套查询 方式：
+        就是会在主查询中去调用子查询-->
+    <select id="oneToManyFather" resultMap="BaseResultMapTwo">
+        select * from card
+    </select>
+    <select id="oneToManySon" resultType="org.example.pojo.Employee">
+        select id,email_address emailAddress,last_name lastName,first_name firstName from employee
+        where first_name = #{first_name}
+    </select>
+</mapper>
+

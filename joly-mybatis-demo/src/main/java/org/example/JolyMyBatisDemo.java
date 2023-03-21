@@ -1,7 +1,12 @@
 package org.example;
 
+import org.apache.ibatis.executor.BatchExecutor;
+import org.apache.ibatis.session.SqlSession;
+import org.example.mapper.CardMapper;
 import org.example.mapper.EmployeeMapper;
+import org.example.pojo.Card;
 import org.example.pojo.Employee;
+import org.example.pojo.Page;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -18,6 +23,11 @@ import java.util.List;
 public class JolyMyBatisDemo implements ApplicationRunner {
 	@Autowired
 	EmployeeMapper employeeMapper;
+	@Autowired
+	CardMapper cardMapper;
+
+	@Autowired
+	SqlSession sqlSession;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JolyMyBatisDemo.class, args);
@@ -30,7 +40,43 @@ public class JolyMyBatisDemo implements ApplicationRunner {
 		// insert();
 		// dynamicSQL();
 		// overloadWrong();
-		overloadWrite();
+		// overloadWrite();
+		// 这个不算
+		// encapsulation();
+		// insertBatch();
+		// selectMapping();
+		batch();
+	}
+
+	private void batch() {
+		System.out.println(sqlSession);
+
+	}
+
+	private void selectMapping() {
+		Employee employee = employeeMapper.selectMapping(1012);
+		System.out.println(employee);
+		System.out.println("--------------");
+		List<Card> cards = cardMapper.oneToMany();
+		cards.forEach(System.out::println);
+		System.out.println("---------------");
+		List<Card> cards2 = cardMapper.oneToManyFather();
+		cards2.forEach(System.out::println);
+	}
+
+	private void insertBatch() {
+		List<Employee> list = new ArrayList<>();
+		list.add(new Employee(0, "00", "batch", "home"));
+		list.add(new Employee(0, "10", "batch", "home"));
+		list.add(new Employee(0, "20", "batch", "home"));
+		employeeMapper.insertBatch(list);
+		list.forEach(System.out::println);
+	}
+
+	private void encapsulation() {
+		Page<Employee> employeePage = employeeMapper.encapsulation();
+		List<Employee> content = employeePage.getContent();
+		content.forEach(System.out::println);
 	}
 
 	private void overloadWrite() {

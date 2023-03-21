@@ -12,9 +12,34 @@
     <insert id="insertXmlOne">
         INSERT INTO employee VALUES (101,'Mona','-a','America');
     </insert>
+    <select id="encapsulation" resultMap="BaseResultMap">
+        select * from employee;
+    </select>
+
     <!-- 配合 JavaGuide 面试题
      https://javaguide.cn/system-design/framework/mybatis/mybatis-interview.html-->
 
+    <!-- 结果映射 -->
+    <!-- 采用了别名的方式，这样在 MyBatis 根据反射进行赋值的时候，就可以找到对应的属性了-->
+    <select id="selectMapping" resultType="org.example.pojo.Employee">
+        select id,first_name firstName,last_name lastName,email_address emailAddress
+        from employee
+        where id = #{id}
+    </select>
+
+
+
+    <!-- 批量插入，返回数据库主键列表:
+        要加上这两个属性 useGeneratedKeys="true" keyProperty="id"
+        返回值不用写list，MyBatis 会自动把 id 赋值到入参的list里面的。-->
+    <insert id="insertBatch" parameterType="org.example.pojo.Employee" useGeneratedKeys="true" keyProperty="id">
+        insert into employee (first_name,last_name,email_address)
+        values
+        <foreach collection="list" item="item"
+                 open="(" separator="),(" close=")">
+            #{item.firstName},#{item.lastName},#{item.emailAddress}
+        </foreach>
+    </insert>
 
     <!-- MyBatis 是否支持 重载：在 xml 层不支持，但是我们可以通过 动态 SQL 来实现。
          但是也有限制，这涉及到了 MyBatis 的实现，
